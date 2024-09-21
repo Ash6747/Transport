@@ -192,8 +192,8 @@ Circles.create({
 //Notify
 $.notify({
 	icon: 'icon-bell',
-	title: 'Kaiadmin',
-	message: 'Premium Bootstrap 5 Admin Dashboard',
+	title: 'Ashish',
+	message: 'Bootstrap Admin Dashboard Designed By Ashish',
 },{
 	type: 'secondary',
 	placement: {

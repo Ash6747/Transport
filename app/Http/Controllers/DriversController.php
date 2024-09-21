@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Driver;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class DriversController extends Controller
 {
     /**
@@ -25,7 +27,10 @@ class DriversController extends Controller
      */
     public function create()
     {
-        return view('admin.driver.create');
+        $url = url('/drivers');
+        $title = "Driver Registration";
+        $data = compact('url', 'title');
+        return view('admin.driver.form')->with($data);
     }
 
     /**
@@ -34,7 +39,7 @@ class DriversController extends Controller
     public function store(Request $request)
     {
         $driver = new Driver;
-        $driver->driver_name = $request['driverName'];
+        $driver->driver_name = $request['fName']." ".$request['mName']." ".$request['lName'];
         $driver->contact_no = $request['driverContactNo'];
         $driver->license_number = $request['driverLicenseNo'];
         $driver->address = $request['driverAddress'];
@@ -56,7 +61,16 @@ class DriversController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $driver = Driver::find($id);
+        if (is_null($driver)) {
+            return redirect('drivers');
+        } else {
+            $url = url('/drivers/update')."/".$id;
+            $title = "Driver Update";
+            $data = compact('url', 'title', 'driver');
+            return view('admin.driver.form')->with($data);
+        }
+        
     }
 
     /**
@@ -64,7 +78,17 @@ class DriversController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $driver = Driver::find($id);
+        if (is_null($driver)) {
+            return redirect('drivers');
+        } else {
+            $driver->driver_name = $request['fName']." ".$request['mName']." ".$request['lName'];
+            $driver->contact_no = $request['driverContactNo'];
+            $driver->license_number = $request['driverLicenseNo'];
+            $driver->address = $request['driverAddress'];
+            $driver->save();
+            return redirect('drivers');
+        }
     }
 
     /**
@@ -72,6 +96,10 @@ class DriversController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $driver = Driver::find($id);
+        if(!is_null($driver)){
+            $driver->delete();
+        }
+        return redirect('drivers');
     }
 }
