@@ -73,9 +73,9 @@
                         <td>{{ $driver->license_number }}</td>
                         <td>
                           @if ($driver->status)
-                            <a class="badge badge-success" href="">Active</a>
+                            <a class="badge badge-success" href="{{ route('driver.status', ['id' => $driver->driver_id])}}">Active</a>
                           @else
-                            <a class="badge badge-danger" href="">Inactive</a>
+                            <a class="badge badge-danger" href="{{ route('driver.status', ['id' => $driver->driver_id])}}">Inactive</a>
                           @endif
                         </td>
                         <td>
@@ -106,3 +106,8 @@
     </div >
 </div>
 @endsection
+@push('script')
+  {{-- script for data Table --}}
+  <x-table-script/>
+  {{-- script for data Table end --}}
+@endpush

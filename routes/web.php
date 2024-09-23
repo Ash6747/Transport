@@ -31,8 +31,9 @@ Route::get('/register/view', [AdminController::class, 'view']);
 
 // Driver
 Route::get('/drivers', [DriversController::class, 'index'])->name('driver.table');
+Route::get('/drivers/status/{id}', [DriversController::class, 'active'])->name('driver.status');
 Route::get('/drivers/create', [DriversController::class, 'create'])->name('driver.create');
-Route::post('/drivers', [DriversController::class, 'store'])->name('driver.store');
+Route::post('/drivers/create', [DriversController::class, 'store'])->name('driver.store');
 Route::get('/drivers/delete/{id}', [DriversController::class, 'destroy'])->name('driver.delete');
 Route::get('/drivers/update/{id}', [DriversController::class, 'edit'])->name('driver.edit');
 Route::post('/drivers/update/{id}', [DriversController::class, 'update'])->name('driver.update');

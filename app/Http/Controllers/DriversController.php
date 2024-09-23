@@ -27,9 +27,10 @@ class DriversController extends Controller
      */
     public function create()
     {
-        $url = url('/drivers');
+        $url = url('/drivers/create');
         $title = "Driver Registration";
-        $data = compact('url', 'title');
+        $routTitle = "Register";
+        $data = compact('url', 'title', 'routTitle');
         return view('admin.driver.form')->with($data);
     }
 
@@ -62,15 +63,18 @@ class DriversController extends Controller
     public function edit(string $id)
     {
         $driver = Driver::find($id);
+        // echo "<pre>";
+        $driverName = explode(' ', $driver->driver_name );
+        // print_r($driverName);
         if (is_null($driver)) {
             return redirect('drivers');
         } else {
             $url = url('/drivers/update')."/".$id;
             $title = "Driver Update";
-            $data = compact('url', 'title', 'driver');
+            $routTitle = "Update";
+            $data = compact('url', 'title', 'driverName', 'driver', 'routTitle');
             return view('admin.driver.form')->with($data);
         }
-        
     }
 
     /**
@@ -86,6 +90,20 @@ class DriversController extends Controller
             $driver->contact_no = $request['driverContactNo'];
             $driver->license_number = $request['driverLicenseNo'];
             $driver->address = $request['driverAddress'];
+            $driver->save();
+            return redirect('drivers');
+        }
+    }
+
+    public function active(string $id)
+    {
+        $driver = Driver::find($id);
+        // echo "<pre>";
+        // print_r($driver);
+        if (is_null($driver)) {
+            return redirect('drivers');
+        } else {
+            $driver->status = !$driver->status;
             $driver->save();
             return redirect('drivers');
         }

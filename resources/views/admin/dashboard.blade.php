@@ -621,4 +621,11 @@
     </div>
 
 @endsection
-    
+@push('script')
+    <!-- jQuery Vector Maps -->
+    <script src="{{ asset('js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
+    <script src="{{ asset('js/plugin/jsvectormap/world.js') }}"></script>
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    {{-- <script src="{{ asset('js/setting-demo.js') }}"></script> --}}
+    <script src="{{ asset('js/demo.js') }}"></script>
+@endpush

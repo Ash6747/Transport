@@ -1,13 +1,13 @@
 @extends('admin.layouts.main')
 @push('title')
-    <title>Create Driver</title>
+    <title>Update Driver</title>
 @endpush
 @section('main-admin')
 <div class="page-header">
     <h3 class="fw-bold mb-3">Forms</h3>
     <ul class="breadcrumbs mb-3">
       <li class="nav-home">
-        <a href="#">
+        <a href="{{ url('/') }}">
           <i class="icon-home"></i>
         </a>
       </li>
@@ -15,13 +15,13 @@
         <i class="icon-arrow-right"></i>
       </li>
       <li class="nav-item">
-        <a href="#">Forms</a>
+        <a href="{{ route('driver.table') }}">Drivers</a>
       </li>
       <li class="separator">
         <i class="icon-arrow-right"></i>
       </li>
       <li class="nav-item">
-        <a href="#">Basic Form</a>
+        <a href="{{ $url }}">{{ $routTitle }}</a>
       </li>
     </ul>
   </div>
@@ -46,7 +46,7 @@
                         id="fName"
                         placeholder="Enter Name"
                         name="fName"
-                        value=""
+                        value="{{ $driverName[0]?? ''}}"
                       />
                       {{-- <small id="fNameMessage" class="form-text text-muted"
                         >We'll never share your email with anyone
@@ -61,6 +61,7 @@
                         id="mName"
                         placeholder="Enter Name"
                         name="mName"
+                        value="{{ $driverName[1]?? ''}}"
                       />
                       {{-- <small id="mNameMessage" class="form-text text-muted"
                         >We'll never share your email with anyone
@@ -75,6 +76,7 @@
                         id="lName"
                         placeholder="Enter Name"
                         name="lName"
+                        value="{{ $driverName[2]?? ''}}"
                       />
                       {{-- <small id="lNameMessage" class="form-text text-muted"
                         >We'll never share your email with anyone
@@ -92,7 +94,7 @@
                     id="contact"
                     placeholder="Contact"
                     name="driverContactNo"
-                    {{ $driver->contact_no }}
+                    value="{{ $driver->contact_no?? ''}}"
                   />
                 </div>
 
@@ -104,7 +106,7 @@
                     id="license"
                     placeholder="License"
                     name="driverLicenseNo"
-                    value="{{ $driver->license_number }}"
+                    value="{{ $driver->license_number?? ''}}"
                   />
                 </div>
 
@@ -118,8 +120,8 @@
                   name="driverAddress" 
                   id="address" 
                   rows="8"
-                  value="{{ $driver->address }}"
-                  ></textarea>
+                  value="{{ $driver->address?? ''}}"
+                  >{{ $driver->address?? ''}}</textarea>
                 </div>
                 
               </div>
@@ -134,3 +136,6 @@
     </div>
   </div>
 @endsection
+@push('script')
+
+@endpush
