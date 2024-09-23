@@ -95,6 +95,9 @@ class DriversController extends Controller
         }
     }
 
+    /**
+     * Update the status in table.
+     */
     public function active(string $id)
     {
         $driver = Driver::find($id);
