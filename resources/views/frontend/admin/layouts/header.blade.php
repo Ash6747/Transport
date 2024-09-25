@@ -45,7 +45,7 @@
   <body>
     <div class="wrapper">
       <!-- Sidebar -->
-      @include('admin.layouts.sidebar')
+      @include('frontend.admin.layouts.sidebar')
       <!-- End Sidebar -->
 
       <div class="main-panel">

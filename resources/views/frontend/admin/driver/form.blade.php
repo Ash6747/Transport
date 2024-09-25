@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('frontend.admin.layouts.main')
 @push('title')
     <title>Update Driver</title>
 @endpush

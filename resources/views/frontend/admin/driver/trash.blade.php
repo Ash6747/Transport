@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('frontend.admin.layouts.main')
 @push('title')
     <title>Driver</title>
 @endpush
@@ -19,12 +19,12 @@
           <li class="nav-item">
             <a href="{{ route('driver.table') }}">Drivers</a>
           </li>
-          {{-- <li class="separator">
+          <li class="separator">
             <i class="icon-arrow-right"></i>
           </li>
           <li class="nav-item">
-            <a href="{{ route('driver.table') }}">Table</a>
-          </li> --}}
+            <a href="{{ route('driver.trash') }}">Trash</a>
+          </li>
         </ul>
       </div>
       <div class="row">
@@ -33,10 +33,11 @@
             <div class="card-header">
               <div class="d-flex align-items-center">
                 <h4 class="card-title">Add Row</h4>
-                    <a class="ms-auto" href="{{ route('driver.create') }}">
+                    
+                    <a class="ms-auto" href="{{ route('driver.table') }}">
                       <button class="btn btn-primary btn-round ">
-                          <i class="fa fa-plus"></i>
-                          Add Driver
+                          <i class="fas fa-table"></i>
+                          Drivers Table
                       </button>
                     </a>
               </div>
@@ -80,16 +81,16 @@
                         </td>
                         <td>
                             <div class="form-button-action">
-                              <a href="{{ route('driver.edit', ['id' => $driver->driver_id])}}">
-                                <button type="button" data-bs-toggle="tooltip" title="Edit"
-                                    class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task" >
-                                    <i class="fa fa-edit"></i>
+                              <a href="{{ route('driver.restore', ['id' => $driver->driver_id])}}">
+                                <button type="button" data-bs-toggle="tooltip" title="Restore"
+                                    class="btn btn-link btn-primary btn-lg" data-original-title="Restore Task" >
+                                    <i class="icon-reload"></i>
                                 </button>
                               </a>
-                              <a href="{{ route('driver.delete', ['id' => $driver->driver_id]) }}">
-                                <button type="button" data-bs-toggle="tooltip" title="Remove" 
-                                    class="btn btn-link btn-danger" data-original-title="Remove" >
-                                    <i class="fa fa-times"></i>
+                              <a href="{{ route('driver.hardDelete', ['id' => $driver->driver_id]) }}">
+                                <button type="button" data-bs-toggle="tooltip" title="Delete Permantly" 
+                                    class="btn btn-link btn-danger btn-lg" data-original-title="Delete Permantly" >
+                                    <i class="icon-trash"></i>
                                 </button>
                               </a>
                             </div>

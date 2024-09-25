@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Driver;
 use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isNull;
 
 class DriversController extends Controller
 {
@@ -19,7 +18,23 @@ class DriversController extends Controller
         // print_r($drivers->toArray());
         // echo "</pre>";
         $data = compact('drivers');
-        return view('admin.driver.drivers')->with($data);
+        return view('frontend.admin.driver.drivers')->with($data);
+    }
+
+    public function trash()
+    {
+        $drivers = Driver::onlyTrashed()->get();
+        $data = compact('drivers');
+        return view('frontend.admin.driver.trash')->with($data);
+    }
+    
+    public function restore(string $id)
+    {
+        $driver = Driver::withTrashed()->find($id);
+        if(!is_null($driver)){
+            $driver->restore();
+        }
+        return redirect('drivers');
     }
 
     /**
@@ -31,7 +46,7 @@ class DriversController extends Controller
         $title = "Driver Registration";
         $routTitle = "Register";
         $data = compact('url', 'title', 'routTitle');
-        return view('admin.driver.form')->with($data);
+        return view('frontend.admin.driver.form')->with($data);
     }
 
     /**
@@ -73,7 +88,7 @@ class DriversController extends Controller
             $title = "Driver Update";
             $routTitle = "Update";
             $data = compact('url', 'title', 'driverName', 'driver', 'routTitle');
-            return view('admin.driver.form')->with($data);
+            return view('frontend.admin.driver.form')->with($data);
         }
     }
 
@@ -122,5 +137,14 @@ class DriversController extends Controller
             $driver->delete();
         }
         return redirect('drivers');
+    }
+
+    public function forcefullyDelete(string $id)
+    {
+        $driver = Driver::withTrashed()->find($id);
+        if(!is_null($driver)){
+            $driver->forceDelete();
+        }
+        return redirect('/drivers/trash');
     }
 }
