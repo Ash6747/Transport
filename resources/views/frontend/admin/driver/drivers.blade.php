@@ -50,7 +50,8 @@
             <div class="card-body">
               <div class="table-responsive">
                 <table
-                  id="add-row"
+                  {{-- id="add-row" --}}
+                  id="multi-filter-select"
                   class="display table table-striped table-hover"
                 >
                   <thead>
@@ -78,11 +79,7 @@
                         <td>{{ $driver->contact_no }}</td>
                         <td>{{ $driver->license_number }}</td>
                         <td>
-                          @if ($driver->status)
-                            <a class="badge badge-success" href="{{ route('driver.status', ['id' => $driver->driver_id])}}">Active</a>
-                          @else
-                            <a class="badge badge-danger" href="{{ route('driver.status', ['id' => $driver->driver_id])}}">Inactive</a>
-                          @endif
+                          <a class="badge badge-{{ $driver->status? 'success' : 'danger' }}" href="{{ route('driver.status', ['id' => $driver->driver_id])}}">{{ $driver->status? 'Active' : 'Inactive' }}</a>
                         </td>
                         <td>
                             <div class="form-button-action">

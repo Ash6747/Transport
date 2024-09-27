@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
-            $table->id();
-            $table->string('full_name');
-            $table->string('identity_number');
-            $table->string('identity_file');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users');
+        Schema::create('bus', function (Blueprint $table) {
+            $table->id('bus_id');
+            $table->string('bus_number');
+            $table->integer('capacity');
+            $table->unsignedBigInteger('routes_id');
+            $table->foreign('routes_id')->references('routes_id')->on('routes');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('bus');
     }
 };

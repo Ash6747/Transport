@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('drivers', function (Blueprint $table) {
-            $table->boolean('status')->default(1)->after('address');
+        Schema::create('routes', function (Blueprint $table) {
+            $table->id('routes_id');
+            $table->string('route_name');
+            $table->string('start_location');
+            $table->string('end_location');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('drivers', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('routes');
     }
 };

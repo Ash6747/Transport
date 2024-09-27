@@ -59,8 +59,15 @@ class DriversController extends Controller
         $driver->contact_no = $request['driverContactNo'];
         $driver->license_number = $request['driverLicenseNo'];
         $driver->address = $request['driverAddress'];
+        $driver->license_id = $request->file('license_id')->store('public/driver/license');
         $driver->save();
-        // print_r($request->toArray());
+        
+        // echo "<pre>";
+        // echo $request->file('license_id')->store('public/driver/license');
+
+        // print_r($request->all());
+        // echo "</pre>";
+
         return redirect('/drivers');
     }
 

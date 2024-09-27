@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Admin;
+use Illuminate\Routing\Controller;
 
 Route::get('/home', function () {
   return view('pages.home');
@@ -32,18 +33,20 @@ Route::get('/register/view', [AdminController::class, 'view']);
 // Route::post('/register', [UserController::class, 'register']);
 
 //Admin Driver Controller
-Route::get('/drivers', [DriversController::class, 'index'])->name('driver.table');
-
-Route::get('/drivers/trash', [DriversController::class, 'trash'])->name('driver.trash');
-Route::get('/drivers/restore/{id}', [DriversController::class, 'restore'])->name('driver.restore');
-Route::get('/drivers/force-delete/{id}', [DriversController::class, 'forcefullyDelete'])->name('driver.hardDelete');
-
-Route::get('/drivers/status/{id}', [DriversController::class, 'active'])->name('driver.status');
-Route::get('/drivers/delete/{id}', [DriversController::class, 'destroy'])->name('driver.delete');
-
-Route::get('/drivers/create', [DriversController::class, 'create'])->name('driver.create');
-Route::post('/drivers/create', [DriversController::class, 'store'])->name('driver.store');
-
-Route::get('/drivers/update/{id}', [DriversController::class, 'edit'])->name('driver.edit');
-Route::post('/drivers/update/{id}', [DriversController::class, 'update'])->name('driver.update');
+Route::prefix('drivers')->controller(DriversController::class)->group(function () {
+  Route::get('/', 'index')->name('driver.table');
+  
+  Route::get('/trash', 'trash')->name('driver.trash');
+  Route::get('/restore/{id}', 'restore')->name('driver.restore');
+  Route::get('/force-delete/{id}', 'forcefullyDelete')->name('driver.hardDelete');
+  
+  Route::get('/status/{id}', 'active')->name('driver.status');
+  Route::get('/delete/{id}', 'destroy')->name('driver.delete');
+  
+  Route::get('/create', 'create')->name('driver.create');
+  Route::post('/create', 'store')->name('driver.store');
+  
+  Route::get('/update/{id}', 'edit')->name('driver.edit');
+  Route::post('/update/{id}', 'update')->name('driver.update');
+});
 

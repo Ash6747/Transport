@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id('driver_id');
-            $table->string('driver_name', 100);
-            $table->string('contact_no', 15);
+            $table->string('full_name');
+            $table->string('license_file');
             $table->string('license_number', 50);
+            $table->date('license_exp');
             $table->text('address');
+            $table->boolean('status')->default(0);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
             $table->timestamps();
         });
     }

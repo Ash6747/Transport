@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <form action="{{ $url }}" method="post">
+        <form method="post" enctype="multipart/form-data" action="{{ $url }}">
           @csrf
           <div class="card-header">
             <div class="card-title">{{ $title }}</div>
@@ -119,9 +119,14 @@
                   class="form-control" 
                   name="driverAddress" 
                   id="address" 
-                  rows="8"
+                  rows="5"
                   value="{{ $driver->address?? ''}}"
                   >{{ $driver->address?? ''}}</textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="formFile" class="form-label">License Picture</label>
+                  <input name="license_id" accept="image/*" class="form-control" type="file" id="formFile">
                 </div>
                 
               </div>
